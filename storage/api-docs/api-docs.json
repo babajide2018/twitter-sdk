@@ -1,0 +1,243 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs For Twitter REST API microservice.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/home": {
+            "post": {
+                "tags": [
+                    "home"
+                ],
+                "summary": "Get home data",
+                "description": "Endpoint to retrieve home data.",
+                "operationId": "getHomeData",
+                "requestBody": {
+                    "description": "Home data input",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            }
+        },
+        "/api/v1/subscribe-to-channel": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Subscribe to Channel",
+                "description": "Endpoint to subscribe a user to a chat channel.",
+                "operationId": "subscribeToChannel",
+                "responses": {
+                    "200": {
+                        "description": "Subscribed to channel successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subscribed to channel successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/send-message": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Send Message",
+                "description": "Endpoint to send a message in a chat channel.",
+                "operationId": "sendMessage",
+                "requestBody": {
+                    "description": "Message data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "description": "Text of the message",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Message sent successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Message sent successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/messenger-webhook": {
+            "post": {
+                "tags": [
+                    "webhook"
+                ],
+                "summary": "Get token data",
+                "description": "Endpoint to retrieve token data.",
+                "operationId": "messanger-webhook",
+                "requestBody": {
+                    "description": "Home data input",
+                    "required": true,
+                    "content": {
+                        "application/json": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "verify_token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Enter Verify Token"
+                    }
+                }
+            }
+        },
+        "/api/v1/subscribe-to-bot": {
+            "post": {
+                "tags": [
+                    "subscription"
+                ],
+                "summary": "Subscribe to Bot",
+                "description": "Endpoint to subscribe a user to a bot.",
+                "operationId": "subscribeToBot",
+                "requestBody": {
+                    "description": "Subscription data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "bot_id": {
+                                        "description": "ID of the bot to subscribe to",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Subscription successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subscription successful"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "User is already subscribed to this bot",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User is already subscribed to this bot"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
